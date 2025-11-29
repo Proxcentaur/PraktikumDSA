@@ -10,12 +10,12 @@ public class MySystem {
         runner.initInventaris();
         runner.tampilkanBarang();
 
-//        runner.cariBarang("Kalkulator");
-//        runner.updateStok("Spidol", 20);
-//
-//        String[] itemList = {"Pensil", "Buku", "Penggaris"};
-//        int[] stokBaru = {15, 25, 10};
-//        runner.updateStokBeberapaBarang(itemList, stokBaru);
+        runner.cariBarang("Kalkulator");
+        runner.updateStok("Spidol", 20);
+
+        String[] itemList = {"Pensil", "Buku", "Penggaris"};
+        int[] stokBaru = {15, 25, 10};
+        runner.updateStokBeberapaBarang(itemList, stokBaru);
     }
 
     /**
