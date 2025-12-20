@@ -6,7 +6,7 @@ public class ArrayOperations extends Operations {
     int [] numbers;
 
     /**
-     * Initializes the array with numbers from 1 to 99.
+     * inisialisasi array dengan nilai dari 1 hingga size
      */
     public void initArray() {
         numbers = new int[size];
@@ -17,22 +17,31 @@ public class ArrayOperations extends Operations {
 
     @Override
     public void traversal() {
-        System.out.print("Array Traversal: [");
+        if (printingEnabled) System.out.print("Array Traversal: [");
         for (int i = 0; i < numbers.length; i++) {
-            System.out.print(numbers[i]); // Mengakses elemen array
-            if (i < numbers.length - 1) {
-                System.out.print(", "); // Menambahkan koma kecuali untuk elemen terakhir
+            int number = numbers[i]; // Mengakses elemen array
+            if (printingEnabled) {
+                System.out.print(number);
+                if (i < numbers.length - 1) {
+                    System.out.print(", "); // Menambahkan koma kecuali untuk elemen terakhir
+                }
             }
         }
-        System.out.print("]"); // Menutup tanda kurung siku
-        System.out.println(" "); // Pindah ke baris baru setelah print out selesai
+        if (printingEnabled) {
+            System.out.print("]"); // Menutup tanda kurung siku
+            System.out.println(" "); // Pindah ke baris baru setelah print out selesai
+        }
     }
 
     @Override
     public void linearSearch(int target) {
         for (int i = 0; i < numbers.length; i++) {
+            // membandingkan elemen array dengan target
             if (numbers[i] == target) {
-                System.out.println("[LINEAR SEARCH | Array] Pencarian " + target + " dalam Array: ditemukan di indeks " + i);
+                // elemen ditemukan
+                if (printingEnabled) {
+                    System.out.println("[LINEAR SEARCH] Pencarian " + target + " dalam Array: ditemukan di indeks " + i);
+                }
                 return;
             }
         }
@@ -42,22 +51,28 @@ public class ArrayOperations extends Operations {
     public void binarySearch(int target) {
         int low = 0; // indeks awal
         int high = numbers.length - 1; // indeks akhir
+        int mid = -1; // inisialisasi indeks tengah
+        boolean isFound = false;
 
         while (low <= high) {
-            int mid = (low + high) / 2; // indeks tengah
+            mid = low + (high - low) / 2; // menghitung indeks tengah
             if (numbers[mid] == target) {
-                // elemen ditemukan
-                System.out.println("[BINARY SEARCH | Array] Pencarian " + target + " dalam Array: ditemukan di indeks " + mid);
-                return;
+                isFound = true; // elemen ditemukan
+                break;
             } else if (numbers[mid] < target) {
-                // cari di bagian kanan
-                low = mid + 1;
+                low = mid + 1; // cari di bagian kanan
             } else {
-                // cari di bagian kiri
-                high = mid - 1;
+                high = mid - 1; // cari di bagian kiri
             }
         }
-        System.out.println("[BINARY SEARCH | Array] Pencarian " + target + " dalam Array: tidak ditemukan");
+
+        if (printingEnabled) {
+            if (isFound) {
+                System.out.println("[BINARY SEARCH] Pencarian " + target + " dalam Array: ditemukan di indeks " + mid);
+            } else {
+                System.out.println("[BINARY SEARCH] Pencarian " + target + " dalam Array: tidak ditemukan");
+            }
+        }
     }
 
     @Override
@@ -69,30 +84,33 @@ public class ArrayOperations extends Operations {
         Arrays.sort(newNumbers); // mengurutkan array setelah penyisipan elemen baru
         this.numbers = newNumbers; // memperbarui referensi array lama ke array baru
 
-        System.out.print("Array setelah penyisipan elemen " + newElement + ": [");
+        if (printingEnabled) {
+            System.out.print("Array setelah penyisipan elemen " + newElement + ": [");
 
-        for (int i = 0; i < newNumbers.length; i++) {
-            System.out.print(newNumbers[i]); // mengakses elemen array
-            if (i < newNumbers.length - 1) {
-                System.out.print(", "); // menambahkan koma kecuali untuk elemen terakhir
+            for (int i = 0; i < newNumbers.length; i++) {
+                System.out.print(newNumbers[i]); // mengakses elemen array
+                if (i < newNumbers.length - 1) {
+                    System.out.print(", "); // menambahkan koma kecuali untuk elemen terakhir
+                }
             }
+            System.out.print("]"); // menutup tanda kurung siku
+            System.out.println(" "); // pindah ke baris baru setelah print out selesai
         }
-        System.out.print("]"); // menutup tanda kurung siku
-        System.out.println(" "); // pindah ke baris baru setelah print out selesai
     }
 
     @Override
     public void deletion(int target) {
         int indexToRemove = -1;
+        // mencari indeks elemen yang akan dihapus
         for (int i = 0; i < numbers.length ; i++) {
             if (target == numbers[i]) {
-                indexToRemove = i;
+                indexToRemove = i; // menemukan indeks elemen yang akan dihapus
                 break;
             }
         }
 
         if (indexToRemove == -1) {
-            System.out.println("Elemen " + target + " tidak ditemukan dalam array.");
+            if (printingEnabled) System.out.println("Elemen " + target + " tidak ditemukan dalam array.");
         } else {
             int[] newNumbers = new int[numbers.length - 1]; // membuat array baru dengan ukuran lebih kecil
 
@@ -103,19 +121,19 @@ public class ArrayOperations extends Operations {
             }
             this.numbers = newNumbers; // memperbarui referensi array lama ke array baru
 
-            System.out.print("Array setelah penghapusan elemen " + target + ": [");
+            if (printingEnabled) {
+                System.out.print("Array setelah penghapusan elemen " + target + ": [");
 
-            for (int i = 0; i < newNumbers.length; i++) {
-                System.out.print(newNumbers[i]); // mengakses elemen array
-                if (i < newNumbers.length - 1) {
-                    System.out.print(", "); // menambahkan koma kecuali untuk elemen terakhir
+                for (int i = 0; i < newNumbers.length; i++) {
+                    System.out.print(newNumbers[i]); // mengakses elemen array
+                    if (i < newNumbers.length - 1) {
+                        System.out.print(", "); // menambahkan koma kecuali untuk elemen terakhir
+                    }
                 }
+
+                System.out.print("]"); // menutup tanda kurung siku
+                System.out.println(" "); // pindah ke baris baru setelah print out selesai
             }
-
-            System.out.print("]"); // menutup tanda kurung siku
-            System.out.println(" "); // pindah ke baris baru setelah print out selesai
         }
-
     }
-
 }

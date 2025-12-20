@@ -2,62 +2,60 @@ package com.septiadinirahayu.personal_assignment.lab1;
 
 public class MainArray {
     public static void main(String[] args) {
-//        ArrayOperations arrayOperations = new ArrayOperations();
-//        ArrayListOperations arrayListOperations = new ArrayListOperations();
-//
-//        int searchTarget = 40; // element yang akan dicari
-//        int elementToModify = 10; // element yang akan dihapus dan ditambahkan
-//
-//        // inisialisasi Array
-//        arrayOperations.initArray();
-//        // inisialisasi ArrayList
-//        arrayListOperations.initArrayList();
-//
-//        // Traversal
-//        arrayOperations.calculateExecutionTime(arrayOperations::traversal, "Array Traversal");
-//        System.out.println("-----------------------------------");
-//        arrayListOperations.calculateExecutionTime(arrayListOperations::traversal, "ArrayList Traversal");
-//        System.out.println("-----------------------------------");
-//
-//        // Linear Search
-//        arrayOperations.calculateExecutionTime(() -> arrayOperations.linearSearch(searchTarget), "Array Linear Search");
-//        System.out.println("-----------------------------------");
-//        arrayListOperations.calculateExecutionTime(() -> arrayListOperations.linearSearch(searchTarget), "ArrayList Linear Search");
-//        System.out.println("-----------------------------------");
-//
-//        // Binary Search
-//        arrayOperations.calculateExecutionTime(() -> arrayOperations.binarySearch(searchTarget), "Array Binary Search");
-//        System.out.println("-----------------------------------");
-//        arrayListOperations.calculateExecutionTime(() -> arrayListOperations.binarySearch(searchTarget), "ArrayList Binary Search");
-//        System.out.println("-----------------------------------");
-//
-//        // Deletion
-//        arrayOperations.calculateExecutionTime(() -> arrayOperations.deletion(elementToModify), "Array Deletion");
-//        System.out.println("-----------------------------------");
-//        arrayListOperations.calculateExecutionTime(() -> arrayListOperations.deletion(elementToModify), "ArrayList Deletion");
-//        System.out.println("-----------------------------------");
-//
-//        // Insertion
-//        arrayOperations.calculateExecutionTime(() -> arrayOperations.insertion(elementToModify), "Array Insertion");
-//        System.out.println("-----------------------------------");
-//        arrayListOperations.calculateExecutionTime(() -> arrayListOperations.insertion(elementToModify), "ArrayList Insertion");
-//        System.out.println("-----------------------------------");
-
+        runWithOutput();
+        System.out.println("\n\n------------------- Benchmark Results -------------------\n");
         benchMark();
     }
+
+    /**
+     * method untuk menjalankan operasi array dan arraylist dengan output hasil operasi.
+     */
+    private static void runWithOutput() {
+        ArrayOperations arrayOps = new ArrayOperations();
+        ArrayListOperations arrayListOps = new ArrayListOperations();
+
+        int elementToModify = 10; // elemen yang akan dihapus dan ditambahkan kembali
+        int searchTarget = 40; // elemen yang akan dicari
+
+        // Initialize
+        arrayOps.initArray();
+        arrayOps.setPrintingEnabled(true); // untuk mengaktifkan output print
+        arrayListOps.initArrayList();
+        arrayListOps.setPrintingEnabled(true); //untuk mengaktifkan output print
+
+        // --- Array Benchmarks ---
+        System.out.println("--- Array Benchmarks ---");
+        arrayOps.calculateExecutionTime(arrayOps::traversal, "Array Traversal");
+        arrayOps.calculateExecutionTime(() -> arrayOps.linearSearch(searchTarget), "Array Linear Search");
+        arrayOps.calculateExecutionTime(() -> arrayOps.binarySearch(searchTarget), "Array Binary Search");
+        arrayOps.calculateExecutionTime(() -> arrayOps.deletion(elementToModify), "Array Deletion");
+        arrayOps.calculateExecutionTime(() -> arrayOps.insertion(elementToModify), "Array Insertion");
+
+        // --- ArrayList Benchmarks ---
+        System.out.println("\n--- ArrayList Benchmarks ---");
+        arrayListOps.calculateExecutionTime(arrayListOps::traversal, "ArrayList Traversal");
+        arrayListOps.calculateExecutionTime(() -> arrayListOps.linearSearch(searchTarget), "ArrayList Linear Search");
+        arrayListOps.calculateExecutionTime(() -> arrayListOps.binarySearch(searchTarget), "ArrayList Binary Search");
+        arrayListOps.calculateExecutionTime(() -> arrayListOps.deletion(elementToModify), "ArrayList Deletion");
+        arrayListOps.calculateExecutionTime(() -> arrayListOps.insertion(elementToModify), "ArrayList Insertion");
+    }
+
 
     /**
      * Method untuk melakukan benchmark pada operasi array dan arraylist.
      */
     private static void benchMark() {
-        ArrayOperationBenchmark arrayBenchmark = new ArrayOperationBenchmark();
-        ArrayListOperationBenchmark arrayListBenchmark = new ArrayListOperationBenchmark();
+        ArrayOperations arrayBenchmark = new ArrayOperations();
+        ArrayListOperations arrayListBenchmark = new ArrayListOperations();
 
         int searchTarget = 40;
         int elementToModify = 10;
 
+        // Initialize
         arrayBenchmark.initArray();
+        arrayBenchmark.setPrintingEnabled(false); // untuk menonaktifkan ouput print supaya menghindari noise pada hasil benchmark
         arrayListBenchmark.initArrayList();
+        arrayListBenchmark.setPrintingEnabled(false); //untuk menonaktifkan ouput print supaya menghindari noise pada hasil benchmark
 
         // --- Array Benchmarks ---
         System.out.println("--- Array Benchmarks ---");

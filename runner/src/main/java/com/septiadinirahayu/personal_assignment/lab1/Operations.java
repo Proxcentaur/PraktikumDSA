@@ -3,6 +3,16 @@ package com.septiadinirahayu.personal_assignment.lab1;
 abstract class
 Operations {
     public int size = 1000;
+    protected boolean printingEnabled = true;
+
+    /**
+     * Mengatur apakah pencetakan output diaktifkan atau tidak.
+     * @param enabled
+     */
+    public void setPrintingEnabled(boolean enabled) {
+        this.printingEnabled = enabled;
+    }
+
     /**
      * Menelusuri elemen-elemen dalam array.
      */
